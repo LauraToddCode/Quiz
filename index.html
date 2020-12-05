@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Web Design & Web Development in Guildford, Surrey. Creating Wordpress, Wix, Squarespace Websites or coding websites from scratch." />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@LauraToddDesign">
+    <meta name="twitter:creator" content="@LauraToddDesign">
+    <meta name="twitter:title" content="Test your Beatles knowledge!">
+    <meta name="twitter:description" content="Play this Beatles quiz and test how much you know about the Fab Four">
+    <meta name="twitter:image" content="http://www.lauratodddesign.com/twitterCards/beatlesQuiz.jpg">
+    <title>Laura Todd Web Design</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159648583-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-159648583-1');
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap');
+    </style>
+
+</head>
+<body>
+
+    <div id="quizWrapper">
+
+        <div id="quizMainGame">
+            <button class="backBtn" href="http://www.lauratodddesign.com">< Back to Main Site</button>
+            <h1 id="quizTitle">The Beatles Quiz</h1>
+            <div id="quizCounters">
+                <h3 id="answeredQuestions">Questions Answered: <span id="qusAnswered">0</span>/20</h3>
+                <h3 id="scoreboard">Score: <span id="score">0</span>/20</h3>
+            </div>
+            <div class="questionsContainer">
+            <div id="question" class="question"></div>
+            <div class="answers">A:
+                <div id="answerA"></div>
+            </div>
+            <div class="answers">B:
+                <div id="answerB"></div>
+            </div>
+            <div class="answers">C:
+                <div id="answerC"></div>
+            </div>
+            <div class="answers">D:
+                <div id="answerD"></div>
+            </div>
+            <div id="rightOrWrong"></div>
+            <div id="nextBtnContainer">
+                <div id="nextBtn">Next</div>
+            </div>
+            </div>
+
+
+
+            <div id="quizModal">
+                <div id="resultsCon">
+                    <p id="quizScore"></p>
+                    <p id="quizScoreBand"></p>
+                    <p id="quizScoreComment"></p>
+                    <button id="resetBtn">Play again</button>
+                </div>
+            </div>
+        
+            
+        </div>       
+
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="quiz.js"></script>
+
+    </script>
+</body>
+</html>
