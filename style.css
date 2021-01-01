@@ -27,6 +27,9 @@ html, body {
 	border: none;
 	font-size: 1.15em;
 	font-family: 'Work Sans', sans-serif;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 
@@ -67,14 +70,6 @@ html, body {
 
 /* QUIZ - DESKTOP */
 
-#quizWrapper {
-	display: grid;
-	grid-template-columns: 30px 1fr 1fr 1fr 30px;
-	grid-template-rows: auto;
-	grid-gap: 10px;
-	height: 100%;
-}
-
 #quizMainGame {
 	background-color: #a8d9f8;
 	grid-column: 2 / 5;
@@ -84,8 +79,11 @@ html, body {
 	grid-template-columns: 20px 1fr 50% 1fr 20px;
 	grid-template-rows: auto;
 	border-radius: 1em;
-	margin: 20px 0;
-	
+	margin: 20px;
+	min-height: calc(100vh - 40px);
+	min-height: -o-calc(100vh - 40px); 
+	min-height: -webkit-calc(100vh - 40px); 
+	min-height: -moz-calc(100vh - 40px);
 }
 
 #quizCounters {
@@ -198,10 +196,6 @@ html, body {
 
 	/* QUIZ - IPAD */
 
-	#quizWrapper {
-		grid-template-rows: auto;
-	}
-
 	#quizCounters {
 		grid-column: 3 / 5;
 		font-size: 1em;
@@ -252,22 +246,16 @@ html, body {
 		font-size: 1em;
 	} 
 
-	#quizWrapper {
-		grid-template-columns: 1em 20px 1fr 20px 1em;
-		grid-template-rows: 10px 1fr 1fr 1fr 88px;
-	}
-
 	#quizMainGame {
 		grid-template-columns: 20px 1fr 20px;
-		grid-template-rows: repeat(4, 1fr);	
 		grid-row: 2 / 3;
-		display: unset;
 		padding: 20px;
 
 	}
 
 	#quizCounters {
 		grid-column: 2 / 3;
+		grid-row: 3 / 4;
 		font-size: 0.8em;
 	}
 
@@ -288,6 +276,7 @@ html, body {
 	
 	.questionsContainer {
 		grid-column: 2 / 3;
+		grid-row: 4 / 5;
 	}
 
 	.answers {
