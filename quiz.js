@@ -287,7 +287,6 @@ $(document).ready(function () {
         chosenQuestion.answerD
     );
 });
-//When question chosen, pop it from the object. Happens when user clicks next?
 
 let noOfQuestionsAnswered = 0;
 
