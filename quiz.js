@@ -24,11 +24,11 @@ class Question {
     }
 
     writeQuestion(question, answerA, answerB, answerC, answerD) {
-        $("#question").text(question);
-        $("#answerA").text(answerA);
-        $("#answerB").text(answerB);
-        $("#answerC").text(answerC);
-        $("#answerD").text(answerD);
+        document.getElementById("question").innerHTML = question;
+        document.getElementById("answerA").innerHTML = answerA;
+        document.getElementById("answerB").innerHTML = answerB;
+        document.getElementById("answerC").innerHTML = answerC;
+        document.getElementById("answerD").innerHTML = answerD;
     }
 }
 
@@ -260,7 +260,17 @@ let question25 = new Question(
 
 let questionsArray = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15, question16, question17, question18, question19, question20, question21, question22, question23, question24, question25];
 
-$(document).ready(function () {
+const modal = document.getElementById("quizModal");
+const nextBtn = document.getElementById("nextBtn");
+const answer = document.getElementsByClassName("answers");
+const rightOrWrong = document.getElementById("rightOrWrong");
+const scoreElement = document.getElementById("score");
+const qusAnsweredElement = document.getElementById("qusAnswered");
+const quizScoreElement = document.getElementById("quizScore");
+const quizScoreBand = document.getElementById("quizScoreBand");
+const quizScoreComment = document.getElementById("quizScoreComment");
+
+document.addEventListener("DOMContentLoaded", function () {
     shuffle(questionsArray);
 
     let chosenQuestion = questionsArray[0];
@@ -290,52 +300,45 @@ $(document).ready(function () {
 
 let noOfQuestionsAnswered = 0;
 
-$("#nextBtn").on("click", function () {
+nextBtn.addEventListener("click", function() {
     
     noOfQuestionsAnswered += 1;
 
     if(noOfQuestionsAnswered == 19){
-        $("#nextBtn").text("Finish");
+        nextBtn.innerHTML = "Finish";
     }
 
 
     if(noOfQuestionsAnswered == 20){
-        $("#quizModal").css({
-            "opacity": "1",
-            "pointer-events": "auto"
-        });
+        modal.style.opacity = "1";
+        modal.style.pointerEvents = "auto";
 
-        $("#quizScore").text("You scored " + score + "/20");
+        quizScoreElement.innerHTML = "You scored " + score + "/20"
 
         if (score > 14) {
-            $("#quizScoreBand").text("You're the 5th Beatle!");
-            $("#quizScoreComment").text("*Along with Pete Best, George Martin, Brian Epstein, Derek Taylor, Neil Aspinall, Stuart Sutcliffe, Billy Preston, Eric Clapton...and others")
+            quizScoreBand.innerHTML = "You're the 5th Beatle!";
+            quizScoreComment.innerHTML = "*Along with Pete Best, George Martin, Brian Epstein, Derek Taylor, Neil Aspinall, Stuart Sutcliffe, Billy Preston, Eric Clapton...and others";
         }
         else if (score > 9 && score < 15) {
-            $("#quizScoreBand").text("Not bad. You know your Glass Onions");
+            quizScoreBand.innerHTML = "Not bad. You know your Glass Onions";
         }
         else if (score > 4 && score < 10) {
-            $("#quizScoreBand").text("You need to Get Back to school");
+            quizScoreBand.innerHTML = "You need to Get Back to school";
         }
         else if (score < 5) {
-            $("#quizScoreBand").text("Beatles who?");
+            quizScoreBand.innerHTML = "Beatles who?";
         }
     }
     else {
-        $(".answers").css({
-        "background-color": "#a8d9f8"
-        })
-        .removeClass("correctAnswerFlash");
+        for (let i = 0; i < answer.length; i++) {
+            answer[i].style.backgroundColor = "#a8d9f8";
+            answer[i].style.pointerEvents = "auto";
+            answer[i].classList.remove("correctAnswerFlash");
+        }
 
-        $(".answers").css({
-            "pointer-events": "auto"
-        });
+        nextBtn.style.pointerEvents = "none";
 
-        $("#nextBtn").css({
-            "pointer-events": "none"
-        });
-
-        $("#rightOrWrong").text(" ");
+        rightOrWrong.innerHTML = "";
 
         delete questionsArray[0];
 
@@ -369,100 +372,85 @@ $("#nextBtn").on("click", function () {
     
 });
 
-$(".answers").on("mouseover", function () {
-    let currentBackgroundColor = $(this).css("background-color");
-    if (currentBackgroundColor == "rgb(168, 217, 248)") {
-        $(this).css({
-        "background-color": "#6AB8EE"
-        });
-    }
-});
-
-$(".answers").on("mouseout", function () {
-    let currentBackgroundColor = $(this).css("background-color");
-    if (currentBackgroundColor == "rgb(106, 184, 238)") {
-        $(this).css({
-        "background-color": "#a8d9f8"
-        });
-    }
-});
-
-$(".answers").on("click", function () {
-    $(this).css({
-        "background-color": "#FEDE00"
-    });
-
-    qusAnswered += 1;
-
-    $("#qusAnswered").text(qusAnswered);
-
-    let chosenQuestion = questionsArray[0];
-    let correctAnswer = chosenQuestion.correctAnswer;
-
-    $(".answers")
-        .children()
-        .each(function () {
-        let allAnswers = $(this).text();
-        if (allAnswers == correctAnswer) {
-            $(this).parent().toggleClass("correctAnswerFlash");
+[...document.querySelectorAll(".answers")].forEach(item =>
+    item.addEventListener("mouseover", function() {
+        let currentBackgroundColor = this.style.backgroundColor;
+        if (currentBackgroundColor == "rgb(168, 217, 248)") {
+            this.style.backgroundColor = "#6AB8EE";
         }
-        });
+    })
+);
 
-    let chosenAnswer = $(this).children().text();
+[...document.querySelectorAll(".answers")].forEach(item =>
+    item.addEventListener("mouseout", function() {
+        let currentBackgroundColor = this.style.backgroundColor;
+        if (currentBackgroundColor == "rgb(106, 184, 238)") {
+            this.style.backgroundColor = "#a8d9f8";
+        }
+    })
+);
 
-    console.log(`the correct answer is ${correctAnswer}`);
-    console.log(`the chosen answer is ${chosenAnswer}`);
+[...document.querySelectorAll(".answers")].forEach(item =>
+    item.addEventListener("click", function() {
+        this.style.backgroundColor = "#FEDE00";
 
-    if (chosenAnswer == correctAnswer) {
-        score += 1;
-        $("#score").text(score);
+        qusAnswered += 1;
 
-        $("#rightOrWrong").text("CORRECT!");
-    }
-    else {
-        $("#rightOrWrong").text("WRONG!");
-    }
+        document.getElementById("qusAnswered").innerHTML = qusAnswered;
 
-    $(".answers").css({
-        "pointer-events": "none"
-    });
+        let chosenQuestion = questionsArray[0];
+        let correctAnswer = chosenQuestion.correctAnswer;
 
-    $("#nextBtn").css({
-        "pointer-events": "auto"
-    });
-});
+        for (let i = 0; i < answer.length; i++) {
+            if (answer[i].firstChild.nextSibling.innerHTML == correctAnswer) {
+                answer[i].classList.toggle("correctAnswerFlash");
+            };
+        }
 
-$("#resetBtn").on("click", function(){
+        let chosenAnswer = this.firstChild.nextSibling.innerHTML;
+
+        if (chosenAnswer == correctAnswer) {
+            score += 1;
+            document.getElementById("score").innerHTML = score;
+
+            document.getElementById("rightOrWrong").innerHTML = "CORRECT!";
+        }
+        else {
+            rightOrWrong.innerHTML = "WRONG!";
+        }
+
+        for (let j = 0; j < answer.length; j++) {
+            answer[j].style.pointerEvents = "none";
+        }
+
+        nextBtn.style.pointerEvents = "auto";
+    })
+);
+
+document.getElementById("resetBtn").addEventListener("click", function() {
     questionsArray = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10, question11, question12, question13, question14, question15, question16, question17, question18, question19, question20, question21, question22, question23, question24, question25];
 
-    $("#quizModal").css({
-        "opacity": "0",
-        "pointer-events": "none"
-    });
+    modal.style.opacity = "0";
+    modal.style.pointerEvents = "none";
 
-    $("#nextBtn").text("Next");
+    nextBtn.innerHTML = "Next";
 
     noOfQuestionsAnswered = 0;
     score = 0;
     qusAnswered = 0;
 
-    $("#qusAnswered").text(0);
-    $("#score").text(0);
+    qusAnsweredElement.innerHTML = 0;
+    scoreElement.innerHTML = 0;
 
-    $(".answers").css({
-        "background-color": "#a8d9f8"
-    })
-    .removeClass("correctAnswerFlash");
+    for (let i = 0; i < answer.length; i++) {
+        answer[i].style.backgroundColor = "#a8d9f8";
+        answer[i].style.pointerEvents = "auto";
+        answer[i].classList.remove("correctAnswerFlash");
+    }
 
-    $(".answers").css({
-        "pointer-events": "auto"
-    });
+    nextBtn.style.pointerEvents = "none";
 
-    $("#nextBtn").css({
-        "pointer-events": "none"
-    });
-
-    $("#rightOrWrong").text(" ");
+    rightOrWrong.innerHTML = "";
 
     shuffle(questionsArray);
 
